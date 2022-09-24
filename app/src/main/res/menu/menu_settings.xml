@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/itemCamera"
+        android:title="Camera"
+        android:icon="@drawable/ic_camera"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/itemAddAlbum"
+        android:title="Add Album"
+        android:icon="@drawable/album_add"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/itemFavorites"
+        android:title="Favorites"
+        app:showAsAction="never"/>
+    <item android:id="@+id/itemRecycleBin"
+        android:title="RecycleBin"
+        app:showAsAction="never"/>
+    <item android:id="@+id/itemSetting"
+        android:title="Setting"
+        app:showAsAction="never"/>
+    <item android:id="@+id/more"
+        android:title="More"
+        app:showAsAction="never"/>
+</menu>
