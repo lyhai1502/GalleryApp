@@ -47,8 +47,8 @@ public class PhotosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_photos, container, false);
         photo_recyclerview = view.findViewById(R.id.photo_recyclerview);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(main);
-        photo_recyclerview.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(main,4);
+        photo_recyclerview.setLayoutManager(gridLayoutManager);
         photo_recyclerview.setAdapter(imageDataAdapter);
         return view;
     }
