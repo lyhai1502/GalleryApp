@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,15 +20,20 @@ import com.example.galleryapp.Options.activity_favorites;
 import com.example.galleryapp.Options.activity_recyclebin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView navigationView;
     private ViewPager viewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         navigationView = findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
