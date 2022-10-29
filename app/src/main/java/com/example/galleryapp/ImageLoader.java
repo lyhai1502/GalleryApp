@@ -61,10 +61,10 @@ public class ImageLoader {
         };
 
         cursor = context.getContentResolver().query(uri,projection,null,null,null);
-        int columIndexData = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+        //int columIndexData = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
         while(cursor.moveToNext()){
-            imagePath = cursor.getString(columIndexData);
+            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
             _imgPath.add(imagePath);
             Log.d("Path", imagePath);
         }

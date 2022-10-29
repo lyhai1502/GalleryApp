@@ -6,12 +6,18 @@
     android:background="@android:color/white">
 
 
-    <TextView
+<!--    <TextView-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:text="Album fragment"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:textColor="@android:color/holo_blue_dark"-->
+<!--        android:textSize="30sp"/>-->
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Album fragment"
-        android:layout_centerInParent="true"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="30sp"/>
+        android:layout_width="match_parent"
+        android:id="@+id/album_recyclerview"
+        ></androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

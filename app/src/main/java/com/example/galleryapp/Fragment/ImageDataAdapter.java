@@ -34,6 +34,7 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
         return new ImageDataViewHolder(view);
     }
 
+    //Xử lý với mỗi position từ mảng đầu vào là img_path thì sẽ đưa lên giao diện như thế nào
     @Override
     public void onBindViewHolder(@NonNull ImageDataViewHolder holder, int position) {
         String img_path_current = img_path.get(position);

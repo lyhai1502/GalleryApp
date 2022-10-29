@@ -1,43 +1,50 @@
 package com.example.galleryapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.galleryapp.Fragment.ViewPagerAdapter;
 import com.example.galleryapp.Options.activity_favorites;
 import com.example.galleryapp.Options.activity_recyclebin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.galleryapp.Fragment.Album.CreateAlbumDialog;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements  CreateAlbumDialog.ICreateAlbumDialog {
 
-    private BottomNavigationView navigationView;
+    //Màn hình chuyển qua lại giữa toàn bộ hình ảnh và album
     private ViewPager viewPager;
-
+    //Thanh navigate chuyển qua lại cho viewPager
+    private BottomNavigationView navigationView;
+    private ViewPagerAdapter viewPagerAdapter;
+    public ArrayList<String> albumNames = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         navigationView = findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
 
+        albumNames.add("First");
+        albumNames.add("Second");
+
+        //Gắn adapter cho viewPager và navigationView, là một phương thức ở dưới class MainActivity
         setUpViewPager();
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager(){
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
+        //Muốn thêm một trang chuyển thì vào class ViewPagerAdapter để đọc !
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -81,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                //do nothing
             }
         });
     }
@@ -93,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //Hàm này sẽ là hàm thực hiện các chức năng khi ta bấm nút
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -100,7 +110,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Camera", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemAddAlbum:
-                Toast.makeText(this,"Add new album", Toast.LENGTH_SHORT).show();
+                viewPager.setCurrentItem(1);
+
+                CreateAlbumDialog dialog = new CreateAlbumDialog(this);
+                dialog.show(getSupportFragmentManager(),"create album");
+
+
+                //Toast.makeText(this,"Add new album", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemFavorites:
                 Toast.makeText(this,"Ảnh yêu thích", Toast.LENGTH_SHORT).show();
@@ -133,4 +149,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    //Hàm passAlbumName được implements từ interface ICreateAlbumDialog ở class CreateAlbumDialog
+    //Dùng để truyền dữ liệu từ fragment Dialog về cho MainActivity
+    @Override
+    public void passAlbumName(String albumName) {
+        albumNames.add(albumName);
+        viewPagerAdapter.getAlbumAdapter().notifyDataSetChanged();
+        Log.d("albumName",albumName);
+
+    }
 }

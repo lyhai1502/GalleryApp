@@ -11,7 +11,8 @@
         android:id="@+id/img_gallery"
         android:layout_width="106dp"
         android:layout_height="70dp"
-        android:src="@drawable/album"></ImageView>
+        android:src="@drawable/album"
+        ></ImageView>
 
 </LinearLayout>
 
