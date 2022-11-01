@@ -20,8 +20,11 @@ import com.example.galleryapp.Options.activity_favorites;
 import com.example.galleryapp.Options.activity_recyclebin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.galleryapp.Fragment.Album.CreateAlbumDialog;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
+
+
 
 public class MainActivity extends AppCompatActivity
         implements  CreateAlbumDialog.ICreateAlbumDialog {
@@ -29,7 +32,9 @@ public class MainActivity extends AppCompatActivity
     //Màn hình chuyển qua lại giữa toàn bộ hình ảnh và album
     private ViewPager viewPager;
     //Thanh navigate chuyển qua lại cho viewPager
-    private BottomNavigationView navigationView;
+    private ChipNavigationBar navigationView;
+
+
     private ViewPagerAdapter viewPagerAdapter;
     public ArrayList<String> albumNames = new ArrayList<String>();
 
@@ -38,20 +43,20 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationView = findViewById(R.id.bottom_nav);
+        navigationView = (ChipNavigationBar) findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
 
         albumNames.add("First");
         albumNames.add("Second");
 
+        navigationView.setItemSelected(R.id.action_photos,true);
         //Gắn adapter cho viewPager và navigationView, là một phương thức ở dưới class MainActivity
         setUpViewPager();
 
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
+        navigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+            public void onItemSelected(int i) {
+                switch (i){
                     case R.id.action_photos:
                         viewPager.setCurrentItem(0);
                         break;
@@ -59,9 +64,10 @@ public class MainActivity extends AppCompatActivity
                         viewPager.setCurrentItem(1);
                         break;
                 }
-                return true;
             }
         });
+
+
     }
 
     private void setUpViewPager(){
@@ -80,10 +86,10 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        navigationView.getMenu().findItem(R.id.action_photos).setChecked(true);
+                        navigationView.setItemSelected(R.id.action_photos,true);
                         break;
                     case 1:
-                        navigationView.getMenu().findItem(R.id.action_album).setChecked(true);
+                        navigationView.setItemSelected(R.id.action_album,true);
                         break;
                 }
             }

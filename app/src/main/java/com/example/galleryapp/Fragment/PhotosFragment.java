@@ -37,7 +37,7 @@ public class PhotosFragment extends Fragment {
 
         ImageLoader imgLoader = new ImageLoader(main);
         _imgPath = imgLoader.get_imgPath();
-        imageDataAdapter = new ImageDataAdapter(_imgPath);
+        imageDataAdapter = new ImageDataAdapter(_imgPath,main);
 
     }
 

@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
 }
 
+
+
 android {
     compileSdk 32
 
@@ -25,7 +27,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
+
+
+
 
 dependencies {
 
@@ -46,4 +52,14 @@ dependencies {
 
     //Add CardView
     implementation "androidx.cardview:cardview:1.0.0"
+
+    //add ViewPager2 and RoundedImageView
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //Add modern navigation bar
+    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+
+    //Add pop up imageView library
+    implementation'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
 }

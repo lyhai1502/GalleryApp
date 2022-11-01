@@ -4,19 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav"/>
+        android:background="#f2e9e6"
+        android:layout_above="@id/bottom_nav"
+        />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_bottom_nav">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:layout_marginBottom="10dp"
+        android:elevation="10dp"
+        app:cnb_menuResource="@menu/menu_bottom_nav"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_radius="5dp">
+
+    </com.ismaeldivita.chipnavigation.ChipNavigationBar>
+
+
+
 
 </RelativeLayout>

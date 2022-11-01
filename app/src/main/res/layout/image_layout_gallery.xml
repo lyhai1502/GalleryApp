@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/image_layout_gallery_layout"
-
+    app:cardCornerRadius="@dimen/cardview_compat_inset_shadow"
+    android:outlineAmbientShadowColor="#9A6051"
+    app:cardBackgroundColor="#f4decb"
     >
 
-    <ImageView
-        android:id="@+id/img_gallery"
-        android:layout_width="106dp"
-        android:layout_height="70dp"
-        android:src="@drawable/album"
-        ></ImageView>
 
-</LinearLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img_gallery"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/album"
+        android:scaleType="centerCrop"
+        android:layout_margin="3dp"
+        app:riv_corner_radius="3dp"></com.makeramen.roundedimageview.RoundedImageView>
+
+
+
+</androidx.cardview.widget.CardView>
 
 
