@@ -6,28 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     >
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f2e9e6"
-        android:layout_above="@id/bottom_nav"
-        />
+        android:layout_height="150dp"
+        android:layout_margin="3dp"
+        android:id="@+id/introTag_cardView"
+        >
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/introTag_imgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/intro_tag"
+            app:riv_corner_radius="5dp"></com.makeramen.roundedimageview.RoundedImageView>
+
+        <TextView
+            android:id="@+id/welcomeBack_txtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/introTag_imgView"
+            android:layout_alignTop="@+id/introTag_imgView"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Welcome Back!"
+            android:textColor="@color/white"
+            android:textSize="35sp"></TextView>
+
+        <TextView
+            android:id="@+id/user_txtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/introTag_imgView"
+            android:layout_alignTop="@+id/introTag_imgView"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Hello Minh, good afternoon!"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+
+
+
+
+    </androidx.cardview.widget.CardView>
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@id/introTag_cardView"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="2dp"
+        android:background="#ffb0a9"
         android:elevation="10dp"
+        android:layout_alignParentEnd="true"
+        app:cnb_badgeColor="#db6097"
         app:cnb_menuResource="@menu/menu_bottom_nav"
         app:cnb_orientationMode="horizontal"
-        app:cnb_radius="5dp">
+        app:cnb_radius="100dp"></com.ismaeldivita.chipnavigation.ChipNavigationBar>
 
-    </com.ismaeldivita.chipnavigation.ChipNavigationBar>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottom_nav"
+        android:layout_alignParentBottom="true"
 
-
+        android:background="@color/white"></androidx.viewpager.widget.ViewPager>
 
 
 </RelativeLayout>

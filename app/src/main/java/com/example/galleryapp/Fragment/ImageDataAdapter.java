@@ -45,11 +45,13 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
     //Xử lý với mỗi position từ mảng đầu vào là img_path thì sẽ đưa lên giao diện như thế nào
     @Override
     public void onBindViewHolder(@NonNull ImageDataViewHolder holder, int position) {
+
+        //Lấy đường dẫn của ảnh, gắn vào imageView
         String img_path_current = img_path.get(position);
         File imageFile = new File(img_path_current);
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-
         holder.img_gallery.setImageBitmap(myBitmap);
+
 
         //Xử lý event khi bấm nhanh vào hình ảnh
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +61,14 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
             }
         });
 
-        //Xử lý event khi bấm lâu ở hình ảnh
+        //Xử lý event khi bấm lâu ở hình ảnh, ở đây là hiện ra một Popup
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
+                //ImagePopup là thư viện riêng dùng để hiện popup theo ảnh
                 ImagePopup imagePopup = new ImagePopup(context);
                 imagePopup.setImageOnClickClose(true);
-
+                //Tạo ra một Drawable mới từ đường dẫn để lấy ảnh chất lượng gốc
                 imagePopup.initiatePopup(Drawable.createFromPath(img_path_current));
                 imagePopup.viewPopup();
                 return true;
@@ -91,7 +93,6 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
             super(itemView);
             this.itemView = itemView;
             img_gallery = (RoundedImageView) itemView.findViewById(R.id.img_gallery);
-
 
         }
     }

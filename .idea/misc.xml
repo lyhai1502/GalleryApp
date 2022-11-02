@@ -8,12 +8,12 @@
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/drawable/ic_camera.xml" value="0.1455" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1455" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/activity_favorites.xml" value="0.1" />
-        <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/activity_main.xml" value="0.152" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/activity_recyclebin.xml" value="0.1796875" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/album_layout_adapter.xml" value="0.176" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/create_album_dialog_layout.xml" value="0.1" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/fragment_album.xml" value="0.1" />
-        <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/fragment_photos.xml" value="0.176" />
+        <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/fragment_photos.xml" value="0.1631578947368421" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/layout/image_layout_gallery.xml" value="0.2" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/menu/menu_bottom_nav.xml" value="0.13333333333333333" />
         <entry key="..\:/K20 FIT HCMUS/Ltrinh Mobile/GalleryProject/GalleryApp/app/src/main/res/menu/menu_settings.xml" value="0.13333333333333333" />
@@ -33,5 +33,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.152" />
+      </ProjectState>
+    </option>
   </component>
 </project>

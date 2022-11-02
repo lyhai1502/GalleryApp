@@ -26,7 +26,7 @@ public class AlbumFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_album, container, false);
 
         album_recyclerview = view.findViewById(R.id.album_recyclerview);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
         album_recyclerview.setLayoutManager(gridLayoutManager);
 
         MainActivity mainActivity = (MainActivity) getActivity();

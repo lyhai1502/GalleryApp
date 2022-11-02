@@ -62,4 +62,7 @@ dependencies {
 
     //Add pop up imageView library
     implementation'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
+
+    //BlurShadowImageView
+    implementation 'com.github.virtualvivek:BlurShadowImageView:4.0'
 }
