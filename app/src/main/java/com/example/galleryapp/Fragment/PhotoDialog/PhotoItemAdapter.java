@@ -13,8 +13,11 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.galleryapp.Fragment.ImageDataAdapter;
+import com.example.galleryapp.MainActivity;
 import com.example.galleryapp.R;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
@@ -46,6 +49,8 @@ public class PhotoItemAdapter extends RecyclerView.Adapter<PhotoItemAdapter.Phot
         File imageFile = new File(img_path_current);
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
         holder.img.setImageBitmap(myBitmap);
+
+
     }
 
     @Override
@@ -55,11 +60,11 @@ public class PhotoItemAdapter extends RecyclerView.Adapter<PhotoItemAdapter.Phot
 
     public class PhotoItemViewHolder extends RecyclerView.ViewHolder {
 
-        public RoundedImageView img;
+        public PhotoView img;
 
         public PhotoItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            img = (RoundedImageView) itemView.findViewById(R.id.photo_item_imgView);
+            img = (PhotoView) itemView.findViewById(R.id.photo_item_imgView);
         }
     }
 }

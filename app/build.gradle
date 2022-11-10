@@ -65,4 +65,7 @@ dependencies {
 
     //BlurShadowImageView
     implementation 'com.github.virtualvivek:BlurShadowImageView:4.0'
+
+    //Zoom
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }
