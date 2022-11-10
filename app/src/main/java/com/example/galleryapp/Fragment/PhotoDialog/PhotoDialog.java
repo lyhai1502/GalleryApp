@@ -28,6 +28,7 @@ public class PhotoDialog extends AppCompatDialogFragment {
     private AlertDialog.Builder builder;
     private View view;
 
+
     public PhotoDialog(MainActivity activity, List<String> img_path){
         this.activity = activity;
         this.img_path = img_path;

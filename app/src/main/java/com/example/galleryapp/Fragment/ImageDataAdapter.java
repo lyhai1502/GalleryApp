@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,16 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
         photoDialog = new PhotoDialog((MainActivity) context,img_path);
     }
 
+
+    ///***
+    // Phương thức này để thiết lập Animation cho Dialog
+    // ***///
+    private void setPhotoDialogAnimation(){
+        Window window = photoDialog.getDialog().getWindow();
+        window.setWindowAnimations(androidx.constraintlayout.widget.R.style.Animation_AppCompat_Dialog);
+    }
+
+
     @NonNull
     @Override
     public ImageDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,14 +66,15 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
         File imageFile = new File(img_path_current);
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
         holder.img_gallery.setImageBitmap(myBitmap);
-
+        int current_position = position;
 
         //Xử lý event khi bấm nhanh vào hình ảnh
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity mainActivity = (MainActivity) context;
-                photoDialog.setCurrentPosition(position);
+                PhotoDialog photoDialog = new PhotoDialog((MainActivity) context,img_path);
+                photoDialog.setCurrentPosition(current_position);
                 photoDialog.show(mainActivity.getSupportFragmentManager(),"Photo Edit");
 
             }
