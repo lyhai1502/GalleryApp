@@ -7,11 +7,11 @@
     app:cardElevation="50dp"
     app:cardPreventCornerOverlap="false"
     app:cardBackgroundColor="@color/white"
-    android:layout_margin="3dp"
     >
    <RelativeLayout
        android:layout_width="150dp"
        android:layout_height="150dp"
+
    >
 
        <ImageView

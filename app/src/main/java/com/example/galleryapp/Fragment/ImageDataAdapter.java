@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceylonlabs.imageviewpopup.ImagePopup;
+import com.example.galleryapp.Fragment.PhotoDialog.PhotoDialog;
+import com.example.galleryapp.MainActivity;
 import com.example.galleryapp.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -29,10 +31,12 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
 
     List<String> img_path;
     Context context;
+    PhotoDialog photoDialog;
 
     public ImageDataAdapter(List<String> img_path, Context context){
         this.context = context;
         this.img_path = img_path;
+        photoDialog = new PhotoDialog((MainActivity) context,img_path);
     }
 
     @NonNull
@@ -57,7 +61,10 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ItemPath: ",img_path_current);
+                MainActivity mainActivity = (MainActivity) context;
+                photoDialog.setCurrentPosition(position);
+                photoDialog.show(mainActivity.getSupportFragmentManager(),"Photo Edit");
+
             }
         });
 

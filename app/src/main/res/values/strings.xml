@@ -2,4 +2,8 @@
     <string name="app_name">Gallery App</string>
     <string name="photos">Photos</string>
     <string name="album">Album</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="favourite">Favourite</string>
+    <string name="delete">Delete</string>
 </resources>
