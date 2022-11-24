@@ -72,6 +72,9 @@ dependencies {
     //Splash screen
     implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
 
+    //Picasso for cache image
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
 
 }

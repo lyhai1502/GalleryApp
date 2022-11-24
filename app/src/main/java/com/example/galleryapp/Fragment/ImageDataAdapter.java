@@ -17,10 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceylonlabs.imageviewpopup.ImagePopup;
+import com.example.galleryapp.Fragment.PhotoDialog.BitmapProcessor;
 import com.example.galleryapp.Fragment.PhotoDialog.PhotoDialog;
 import com.example.galleryapp.MainActivity;
 import com.example.galleryapp.R;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
@@ -42,7 +44,7 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
 
 
     ///***
-    // Phương thức này để thiết lập Animation cho Dialog
+    // Phương thức này để thiết lập Animation cho Dialog Binding ở mỗi hình ảnh
     // ***///
     private void setPhotoDialogAnimation(){
         Window window = photoDialog.getDialog().getWindow();
@@ -61,15 +63,20 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
     @Override
     public void onBindViewHolder(@NonNull ImageDataViewHolder holder, int position) {
 
+        float reScale = 0.2f;
+
+        BitmapProcessor bmpProcessor = new BitmapProcessor();
         //Lấy đường dẫn của ảnh, gắn vào imageView
         String img_path_current = img_path.get(position);
         File imageFile = new File(img_path_current);
+
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-        Bitmap bmp_rescale = Bitmap.createScaledBitmap(myBitmap,
-                (int) (myBitmap.getWidth() *0.2) ,
-                (int) (myBitmap.getHeight() *0.2), true
+        myBitmap = Bitmap.createScaledBitmap(myBitmap,
+                (int) (myBitmap.getWidth() *reScale) ,
+                (int) (myBitmap.getHeight() *reScale), true
         );
-        holder.img_gallery.setImageBitmap(bmp_rescale);
+        holder.img_gallery.setImageBitmap(myBitmap);
+
         int current_position = position;
 
         //Xử lý event khi bấm nhanh vào hình ảnh

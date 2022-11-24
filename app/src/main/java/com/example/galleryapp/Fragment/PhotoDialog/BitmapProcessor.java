@@ -2,12 +2,16 @@ package com.example.galleryapp.Fragment.PhotoDialog;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.util.Log;
+
+import java.io.File;
 
 public class BitmapProcessor {
 
@@ -15,6 +19,11 @@ public class BitmapProcessor {
     private Context ctx;
     private RenderScript renderScript;
 
+    public BitmapProcessor(){
+        //Do Nothing
+    }
+
+    //Co hai cach dung class nay
     public BitmapProcessor(Bitmap input, Context ctx, RenderScript renderScript){
         this.bmp = input;
         this.ctx = ctx;
@@ -57,5 +66,6 @@ public class BitmapProcessor {
 
         return bitmap;
     }
+
 
 }

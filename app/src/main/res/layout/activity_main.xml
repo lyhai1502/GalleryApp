@@ -7,12 +7,16 @@
     tools:context=".MainActivity"
     >
 
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="3dp"
         android:id="@+id/introTag_cardView"
         >
+
+
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/introTag_imgView"
@@ -21,6 +25,14 @@
             android:scaleType="centerCrop"
             android:src="@drawable/intro_tag"
             app:riv_corner_radius="5dp"></com.makeramen.roundedimageview.RoundedImageView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            ></ImageView>
 
         <TextView
             android:id="@+id/welcomeBack_txtView"
@@ -44,7 +56,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="70dp"
             android:fontFamily="@font/montserrat"
-            android:text="Hello Minh, good afternoon!"
+            android:text="Hello, good "
             android:textColor="@color/white"
             android:textSize="20sp"></TextView>
 
@@ -52,6 +64,8 @@
 
 
     </androidx.cardview.widget.CardView>
+
+
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav"

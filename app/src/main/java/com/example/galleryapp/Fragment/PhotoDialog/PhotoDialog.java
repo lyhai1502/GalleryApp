@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,9 @@ import com.example.galleryapp.R;
 
 import java.util.List;
 
+
+//Class này là một class kế thừa DialogFragment nên nhận layout là photo_dialog_layout
+
 public class PhotoDialog extends AppCompatDialogFragment {
 
     private MainActivity activity;
@@ -28,7 +32,8 @@ public class PhotoDialog extends AppCompatDialogFragment {
     private ViewPager2 viewPager;
     private AlertDialog.Builder builder;
     private View view;
-
+    //Biến này tự gọi chính nó, dùng cho setEvent cho nút hủy chính nó
+    private PhotoDialog thisPhotoDialog = this;
 
     public PhotoDialog(MainActivity activity, List<String> img_path){
         this.activity = activity;
@@ -73,6 +78,15 @@ public class PhotoDialog extends AppCompatDialogFragment {
             public void transformPage(@NonNull View page, float position) {
                 float r = 1f - Math.abs(position);
                 page.setScaleX(0.90f + r*0.0005f);
+            }
+        });
+
+
+        ImageView closePhotoDialog_imageView = view.findViewById(R.id.closePhotoDialog_imageView);
+        closePhotoDialog_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thisPhotoDialog.dismiss();
             }
         });
 

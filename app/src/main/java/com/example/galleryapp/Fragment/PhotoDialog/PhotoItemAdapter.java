@@ -21,6 +21,7 @@ import com.example.galleryapp.MainActivity;
 import com.example.galleryapp.R;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
@@ -41,8 +42,6 @@ public class PhotoItemAdapter extends RecyclerView.Adapter<PhotoItemAdapter.Phot
     }
 
 
-
-
     @NonNull
     @Override
     public PhotoItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,15 +58,14 @@ public class PhotoItemAdapter extends RecyclerView.Adapter<PhotoItemAdapter.Phot
         File imageFile = new File(img_path_current);
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
         myBitmap = Bitmap.createScaledBitmap(myBitmap,
-                (int) (myBitmap.getWidth() *0.8) ,
-                (int) (myBitmap.getHeight() *0.8), true
+                (int) (myBitmap.getWidth() *0.5) ,
+                (int) (myBitmap.getHeight() *0.5), true
         );
 
 
         //Class processor riêng chuyên làm nhiệm vụ xử lý bitmap
         BitmapProcessor bmp_processor = new BitmapProcessor(myBitmap,ctx,renderScript);
         Drawable backGround = new BitmapDrawable(ctx.getResources(), bmp_processor.blur(25.0f));
-        //Drawable backGround = new BitmapDrawable(ctx.getResources(), myBitmap);
 
         holder.img.setImageBitmap(myBitmap);
         holder.img.setBackground(backGround);

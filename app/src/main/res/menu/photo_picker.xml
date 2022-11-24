@@ -6,27 +6,27 @@
     <item
         android:id="@+id/editPhoto"
         android:title="@string/edit"
-        android:icon="@drawable/photo"
+        android:icon="@drawable/edit"
         app:cnb_iconColor="#e32679"
         />
     <item
         android:id="@+id/favouritePhoto"
         android:title="@string/favourite"
-        android:icon="@drawable/album"
+        android:icon="@drawable/heart"
         app:cnb_iconColor = "#e32679"
         />
 
     <item
         android:id="@+id/sharePhoto"
         android:title="@string/share"
-        android:icon="@drawable/album"
+        android:icon="@drawable/share"
         app:cnb_iconColor = "#e32679"
         />
 
     <item
         android:id="@+id/deletePhoto"
         android:title="@string/delete"
-        android:icon="@drawable/album"
+        android:icon="@drawable/trashbin"
         app:cnb_iconColor = "#e32679"
         />
 
