@@ -68,4 +68,10 @@ dependencies {
 
     //Zoom
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    //Splash screen
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+
+
+
 }

@@ -65,7 +65,11 @@ public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.Imag
         String img_path_current = img_path.get(position);
         File imageFile = new File(img_path_current);
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-        holder.img_gallery.setImageBitmap(myBitmap);
+        Bitmap bmp_rescale = Bitmap.createScaledBitmap(myBitmap,
+                (int) (myBitmap.getWidth() *0.2) ,
+                (int) (myBitmap.getHeight() *0.2), true
+        );
+        holder.img_gallery.setImageBitmap(bmp_rescale);
         int current_position = position;
 
         //Xử lý event khi bấm nhanh vào hình ảnh

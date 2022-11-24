@@ -2,6 +2,7 @@ package com.example.galleryapp.Fragment.PhotoDialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -70,8 +71,8 @@ public class PhotoDialog extends AppCompatDialogFragment {
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleX(0.85f + r*0.15f);
+                float r = 1f - Math.abs(position);
+                page.setScaleX(0.90f + r*0.0005f);
             }
         });
 
@@ -79,5 +80,10 @@ public class PhotoDialog extends AppCompatDialogFragment {
         viewPager.setPageTransformer(compositePageTransformer);
         viewPager.setCurrentItem(this.currentPosition);
         return dialog;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

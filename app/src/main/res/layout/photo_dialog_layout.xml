@@ -9,8 +9,9 @@
         android:layout_height="match_parent"
         android:id="@+id/photo_viewPager"
         android:layout_alignParentTop="true"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="80dp"
+        android:layout_marginTop="5dp"
         ></androidx.viewpager2.widget.ViewPager2>
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar

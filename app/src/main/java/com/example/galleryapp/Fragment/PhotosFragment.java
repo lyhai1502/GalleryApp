@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.galleryapp.ImageLoader;
 import com.example.galleryapp.MainActivity;
@@ -47,7 +48,7 @@ public class PhotosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_photos, container, false);
         photo_recyclerview = view.findViewById(R.id.photo_recyclerview);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(main,3);
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
         photo_recyclerview.setLayoutManager(gridLayoutManager);
         photo_recyclerview.setAdapter(imageDataAdapter);
         return view;

@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.chrisbanes.photoview.PhotoView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:scaleType="fitCenter"
-    android:id="@+id/photo_item_imgView"
-    app:riv_corner_radius="10dp"
-    android:src="@drawable/album"
-    ></com.github.chrisbanes.photoview.PhotoView>
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="50dp"
+    app:cardPreventCornerOverlap="false"
+    >
+
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photo_item_imgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/album"></com.github.chrisbanes.photoview.PhotoView>
+
+
+</androidx.cardview.widget.CardView>
+

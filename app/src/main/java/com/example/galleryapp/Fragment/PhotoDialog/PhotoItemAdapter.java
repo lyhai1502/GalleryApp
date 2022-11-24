@@ -3,7 +3,9 @@ package com.example.galleryapp.Fragment.PhotoDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.renderscript.RenderScript;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +31,16 @@ public class PhotoItemAdapter extends RecyclerView.Adapter<PhotoItemAdapter.Phot
 
     private List<String> img_path;
     private Context ctx;
+    //Use for class Bitmap Processor, enhance the performance
+    private RenderScript renderScript;
 
     public PhotoItemAdapter(List<String> img_path, Context context){
         this.img_path = img_path;
         this.ctx = context;
+        renderScript = RenderScript.create(ctx);
     }
+
+
 
 
     @NonNull
@@ -45,10 +52,26 @@ public class PhotoItemAdapter extends RecyclerView.Adapter<PhotoItemAdapter.Phot
 
     @Override
     public void onBindViewHolder(@NonNull PhotoItemViewHolder holder, int position) {
+
+        final int BACKGROUND_OPACITY = 80;
+
         String img_path_current = this.img_path.get(position);
         File imageFile = new File(img_path_current);
         Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+        myBitmap = Bitmap.createScaledBitmap(myBitmap,
+                (int) (myBitmap.getWidth() *0.8) ,
+                (int) (myBitmap.getHeight() *0.8), true
+        );
+
+
+        //Class processor riêng chuyên làm nhiệm vụ xử lý bitmap
+        BitmapProcessor bmp_processor = new BitmapProcessor(myBitmap,ctx,renderScript);
+        Drawable backGround = new BitmapDrawable(ctx.getResources(), bmp_processor.blur(25.0f));
+        //Drawable backGround = new BitmapDrawable(ctx.getResources(), myBitmap);
+
         holder.img.setImageBitmap(myBitmap);
+        holder.img.setBackground(backGround);
+        holder.img.getBackground().setAlpha(BACKGROUND_OPACITY);
 
 
     }
