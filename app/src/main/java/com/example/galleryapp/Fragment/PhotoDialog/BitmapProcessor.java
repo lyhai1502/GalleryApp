@@ -1,5 +1,6 @@
 package com.example.galleryapp.Fragment.PhotoDialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,16 +9,22 @@ import android.graphics.Paint;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsic3DLUT;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.renderscript.Type;
 import android.util.Log;
 
+import com.example.galleryapp.Fragment.EditPhoto.CubeDataLoader;
+
 import java.io.File;
+import java.util.Arrays;
 
 public class BitmapProcessor {
 
     private Bitmap bmp;
     private Context ctx;
     private RenderScript renderScript;
+    ScriptIntrinsic3DLUT mScriptlut;
 
     public BitmapProcessor(){
         //Do Nothing
@@ -28,6 +35,7 @@ public class BitmapProcessor {
         this.bmp = input;
         this.ctx = ctx;
         this.renderScript = renderScript;
+        this.mScriptlut = ScriptIntrinsic3DLUT.create(renderScript, Element.U8_4(renderScript));
     }
 
     public Bitmap getBmp() {
@@ -65,6 +73,50 @@ public class BitmapProcessor {
         //renderScript.destroy();
 
         return bitmap;
+    }
+
+    public Bitmap applyLUT(CubeDataLoader loader){
+        Bitmap mBitmap = null;
+        Bitmap mLutBitmap = null;
+        Bitmap mOutputBitmap = null;
+        Allocation mAllocIn = null;
+        Allocation mAllocOut = null;
+        Allocation mAllocCube;
+
+        int redDim, greenDim, blueDim;
+
+        if (mBitmap == null) {
+            mBitmap = bmp;
+
+            mBitmap = Bitmap.createScaledBitmap(mBitmap,
+                    (int) (mBitmap.getWidth() *0.1) ,
+                    (int) (mBitmap.getHeight() *0.1), true
+            );
+
+            mOutputBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), mBitmap.getConfig());
+
+            mAllocIn = Allocation.createFromBitmap(renderScript, mBitmap);
+            mAllocOut = Allocation.createFromBitmap(renderScript, mOutputBitmap);
+        }
+
+
+        int size = loader.getSize();
+        int data_size = loader.getData_size();
+        int[] lut = Arrays.copyOf(loader.getData(),data_size);
+
+        redDim = greenDim = blueDim = size;
+
+        Type.Builder tb = new Type.Builder(renderScript, Element.U8_4(renderScript));
+        tb.setX(redDim).setY(greenDim).setZ(blueDim);
+        Type t = tb.create();
+        mAllocCube = Allocation.createTyped(renderScript, t);
+        mAllocCube.copyFromUnchecked(lut);
+        mScriptlut.setLUT(mAllocCube);
+        mScriptlut.forEach(mAllocIn, mAllocOut);
+
+        mAllocOut.copyTo(mOutputBitmap);
+
+        return mOutputBitmap;
     }
 
 

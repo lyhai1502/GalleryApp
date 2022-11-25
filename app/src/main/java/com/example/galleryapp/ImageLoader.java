@@ -67,7 +67,7 @@ public class ImageLoader {
             //imagePath = cursor.getString(columIndexData);
             imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
             _imgPath.add(imagePath);
-            Log.d("Path", imagePath);
+            //Log.d("Path", imagePath);
         }
     }
 

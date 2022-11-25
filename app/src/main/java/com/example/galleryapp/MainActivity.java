@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
         inflater.inflate(R.menu.menu_settings, menu);
         return true;
     }
-    
+
 
     //Hàm passAlbumName được implements từ interface ICreateAlbumDialog ở class CreateAlbumDialog
     //Dùng để truyền dữ liệu từ fragment Dialog về cho MainActivity
