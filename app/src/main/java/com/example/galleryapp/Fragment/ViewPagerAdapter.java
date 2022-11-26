@@ -5,12 +5,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.galleryapp.Fragment.Album.AlbumAdapter;
 import com.example.galleryapp.Fragment.AlbumFragment;
 import com.example.galleryapp.Fragment.PhotosFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
+    AlbumFragment album_fragment;
+    PhotosFragment photo_fragment;
+
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
+        album_fragment = new AlbumFragment();
+        photo_fragment = new PhotosFragment();
     }
 
     @NonNull
@@ -18,14 +25,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 1:
-                return new AlbumFragment();
+                // để chia Album
+                return album_fragment;
             default:
-                return new PhotosFragment();
+                // xuất hiện toàn bộ ảnh trong máy
+                return photo_fragment;
         }
     }
 
     @Override
     public int getCount() {
         return 2;
+    }
+
+    public AlbumAdapter getAlbumAdapter(){
+        return album_fragment.getAlbumAdapter();
     }
 }

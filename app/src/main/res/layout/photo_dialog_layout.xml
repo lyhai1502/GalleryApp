@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/photo_viewPager"
+        android:layout_alignParentTop="true"
+        android:paddingTop="40dp"
+        android:paddingBottom="80dp"
+        android:layout_marginTop="5dp"
+        ></androidx.viewpager2.widget.ViewPager2>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/closePhotoDialog_imageView"
+        android:src="@drawable/close"
+        android:layout_alignEnd="@id/photo_viewPager"
+        android:layout_margin="5dp"
+        ></ImageView>
+
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/navigation_bar_photo_picker"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@id/photo_viewPager"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_menuResource="@menu/photo_picker"
+        ></com.ismaeldivita.chipnavigation.ChipNavigationBar>
+
+</RelativeLayout>

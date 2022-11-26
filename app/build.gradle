@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
 }
 
+
+
 android {
     compileSdk 32
 
@@ -25,7 +27,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
+
+
+
 
 dependencies {
 
@@ -38,4 +44,37 @@ dependencies {
 
     // Add libs
     implementation 'com.google.android.material:material:1.6.1'
+
+    //Add RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+    //Add CardView
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //add ViewPager2 and RoundedImageView
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //Add modern navigation bar
+    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+
+    //Add pop up imageView library
+    implementation'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
+
+    //BlurShadowImageView
+    implementation 'com.github.virtualvivek:BlurShadowImageView:4.0'
+
+    //Zoom
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    //Splash screen
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+
+    //Picasso for cache image
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+
+
 }

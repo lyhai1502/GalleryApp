@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/editPhoto"
+        android:title="@string/edit"
+        android:icon="@drawable/edit"
+        app:cnb_iconColor="#e32679"
+        />
+    <item
+        android:id="@+id/favouritePhoto"
+        android:title="@string/favourite"
+        android:icon="@drawable/heart"
+        app:cnb_iconColor = "#e32679"
+        />
+
+    <item
+        android:id="@+id/sharePhoto"
+        android:title="@string/share"
+        android:icon="@drawable/share"
+        app:cnb_iconColor = "#e32679"
+        />
+
+    <item
+        android:id="@+id/deletePhoto"
+        android:title="@string/delete"
+        android:icon="@drawable/trashbin"
+        app:cnb_iconColor = "#e32679"
+        />
+
+</menu>

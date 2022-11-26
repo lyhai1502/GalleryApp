@@ -1,43 +1,69 @@
 package com.example.galleryapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+
 import com.example.galleryapp.Fragment.ViewPagerAdapter;
-import com.example.galleryapp.Options.activity_favorites;
-import com.example.galleryapp.Options.activity_recyclebin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.galleryapp.Fragment.Album.CreateAlbumDialog;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Calendar;
 
-    private BottomNavigationView navigationView;
+
+public class MainActivity extends AppCompatActivity
+        implements  CreateAlbumDialog.ICreateAlbumDialog {
+
+    //Màn hình chuyển qua lại giữa toàn bộ hình ảnh và album
     private ViewPager viewPager;
+    //Thanh navigate chuyển qua lại cho viewPager
+    private ChipNavigationBar navigationView;
+
+
+    private ViewPagerAdapter viewPagerAdapter;
+    public ArrayList<String> albumNames = new ArrayList<String>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Calling splashScreen
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationView = findViewById(R.id.bottom_nav);
+        //Hiển thị lời chào buổi sáng và câu Quotes
+        setUpTextElement();
+
+        navigationView = (ChipNavigationBar) findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
 
-        setUpViewPager();
+        albumNames.add("Favourite");
+        albumNames.add("Trash Bin");
 
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
+        navigationView.setItemSelected(R.id.action_photos,true);
+        //Gắn adapter cho viewPager và navigationView, là một phương thức ở dưới class MainActivity
+        setUpViewPager();
+        navigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+            public void onItemSelected(int i) {
+                switch (i){
                     case R.id.action_photos:
                         viewPager.setCurrentItem(0);
                         break;
@@ -45,13 +71,41 @@ public class MainActivity extends AppCompatActivity {
                         viewPager.setCurrentItem(1);
                         break;
                 }
-                return true;
             }
         });
+
+
     }
 
+
+    private void setUpTextElement(){
+        Calendar calendar = Calendar.getInstance();
+        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
+        TextView user_txtView = (TextView) findViewById(R.id.user_txtView);
+        String partOfDay = "";
+        if(hour24hrs <6){
+            partOfDay = "night, best wishes for your late night work!";
+        }
+        else if( 6 <= hour24hrs && hour24hrs <= 12){
+            partOfDay = "morning, have a nice day!";
+        }
+        else if( 12 < hour24hrs && hour24hrs <= 19){
+            partOfDay = "evening, be energetic!";
+        }
+        else{
+            partOfDay = "night, love to see you!";
+        }
+        user_txtView.setText(
+                user_txtView.getText() + partOfDay
+        );
+
+    }
+
+
     private void setUpViewPager(){
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
+        //Muốn thêm một trang chuyển thì vào class ViewPagerAdapter để đọc !
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -64,17 +118,17 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        navigationView.getMenu().findItem(R.id.action_photos).setChecked(true);
+                        navigationView.setItemSelected(R.id.action_photos,true);
                         break;
                     case 1:
-                        navigationView.getMenu().findItem(R.id.action_album).setChecked(true);
+                        navigationView.setItemSelected(R.id.action_album,true);
                         break;
                 }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                //do nothing
             }
         });
     }
@@ -86,44 +140,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    //Hàm passAlbumName được implements từ interface ICreateAlbumDialog ở class CreateAlbumDialog
+    //Dùng để truyền dữ liệu từ fragment Dialog về cho MainActivity
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.itemCamera:
-                Toast.makeText(this,"Camera", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.itemAddAlbum:
-                Toast.makeText(this,"Add new album", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.itemFavorites:
-                Toast.makeText(this,"Ảnh yêu thích", Toast.LENGTH_SHORT).show();
-                Intent intentFavorites = new Intent();
-                openFavorites(intentFavorites);
-                return true;
-            case R.id.itemRecycleBin:
-                Toast.makeText(this,"Thùng rác", Toast.LENGTH_SHORT).show();
-                Intent intentRecycleBin = new Intent();
-                openRecycleBin(intentRecycleBin);
-                return true;
-            case R.id.itemSetting:
-                Toast.makeText(this,"Cài đặt", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.more:
-                Toast.makeText(this,"Các chức năng phụ", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+    public void passAlbumName(String albumName) {
+        albumNames.add(albumName);
+        viewPagerAdapter.getAlbumAdapter().notifyDataSetChanged();
+        Log.d("albumName",albumName);
 
-    private void openFavorites(Intent intent){
-        intent = new Intent(this, activity_favorites.class);
-        startActivity(intent);
     }
-
-    private void openRecycleBin(Intent intent){
-        intent = new Intent(this, activity_recyclebin.class);
-        startActivity(intent);
-    }
-
 }
