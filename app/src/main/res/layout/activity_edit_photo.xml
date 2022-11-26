@@ -10,15 +10,15 @@
         android:id="@+id/preview_imageView"
         android:layout_width="match_parent"
         android:layout_height="460dp"
-        android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
         android:layout_above="@+id/filter_recyclerView"
-        android:layout_marginBottom="4dp"></ImageView>
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="4dp"
+        android:scaleType="fitCenter"></ImageView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/filter_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="22dp"></androidx.recyclerview.widget.RecyclerView>
 

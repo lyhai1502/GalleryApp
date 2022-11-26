@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.galleryapp.R;
@@ -52,6 +53,16 @@ public class EditPhotoActivity extends AppCompatActivity {
 
         renderScript = RenderScript.create(this);
 
+        preview_imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Picasso.get()
+                        .load(file)
+                        .into(preview_imageView);
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +86,7 @@ public class EditPhotoActivity extends AppCompatActivity {
         cube_files = assetManager.list("cube");
         return cube_files;
     }
+
 
     public class FilterViewAsyncTask extends AsyncTask<Void,CubeDataLoader,Void>{
 
@@ -112,8 +124,6 @@ public class EditPhotoActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
         }
-
-
 
 
     }

@@ -14,9 +14,10 @@ public class CubeDataLoader {
     private int data[];
     private int size;
     private int data_size;
+    private String nameFile;
 
     public CubeDataLoader(Context activity, String file) {
-
+        nameFile = file;
         data = null;
         int lut3dSize = 0;
         BufferedReader reader = null;
@@ -96,6 +97,10 @@ public class CubeDataLoader {
 
         data_size = i;
 
+    }
+
+    public String getNameFile(){
+        return this.nameFile;
     }
 
     public int[] getData() {
