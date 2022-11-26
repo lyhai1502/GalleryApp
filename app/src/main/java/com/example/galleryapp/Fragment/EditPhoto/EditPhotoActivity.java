@@ -1,11 +1,14 @@
 package com.example.galleryapp.Fragment.EditPhoto;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
 import android.util.Log;
@@ -22,10 +25,14 @@ import java.util.List;
 public class EditPhotoActivity extends AppCompatActivity {
 
 
-    private ImageView preview_imageView;
-    private RecyclerView filter_recyclerView;
+    public ImageView preview_imageView;
+    public RecyclerView filter_recyclerView;
+    public String filepath;
     String[] cube_files;
     ArrayList<CubeDataLoader> cubes = new ArrayList<CubeDataLoader>();
+    RenderScript renderScript;
+    public EditPhotoActivity ctx = this;
+    PreviewFilterImageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,7 @@ public class EditPhotoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        String filepath = bundle.getString("filepath");
+        filepath = bundle.getString("filepath");
         preview_imageView = (ImageView) findViewById(R.id.preview_imageView);
         filter_recyclerView = (RecyclerView) findViewById(R.id.filter_recyclerView);
         File file = new File(filepath);
@@ -43,30 +50,22 @@ public class EditPhotoActivity extends AppCompatActivity {
                 .load(file)
                 .into(preview_imageView);
 
-        try{
-            this.getAllCubes();
-        }
-        catch (IOException e){
-            //Eat exception
-        }
-        int count = 0;
-        for (String cube_file : cube_files
-             ) {
+        renderScript = RenderScript.create(this);
 
-            String path_cube_file = "cube/" + cube_file;
+    }
 
-            cubes.add(new CubeDataLoader(this,path_cube_file));
-            count++;
+    @Override
+    protected void onStart(){
+        super.onStart();
 
-        }
-
-        RenderScript renderScript = RenderScript.create(this);
-        PreviewFilterImageAdapter adapter = new PreviewFilterImageAdapter(this,
+        adapter = new PreviewFilterImageAdapter(this,
                 filepath,cubes,renderScript);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false);
         filter_recyclerView.setLayoutManager(linearLayoutManager);
         filter_recyclerView.setAdapter(adapter);
+        FilterViewAsyncTask loadFilter_asyncTask = new FilterViewAsyncTask();
+        loadFilter_asyncTask.execute();
 
     }
 
@@ -77,5 +76,45 @@ public class EditPhotoActivity extends AppCompatActivity {
         return cube_files;
     }
 
+    public class FilterViewAsyncTask extends AsyncTask<Void,CubeDataLoader,Void>{
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try{
+                getAllCubes();
+            }
+            catch (IOException e){
+                //Eat exception
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            for (String cube_file : cube_files
+            ) {
+
+                String path_cube_file = "cube/" + cube_file;
+                CubeDataLoader current = new CubeDataLoader(ctx,path_cube_file);
+                publishProgress(current);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(CubeDataLoader... values) {
+            super.onProgressUpdate(values);
+            cubes.add(values[0]);
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+        }
+
+
+
+
+    }
 }
