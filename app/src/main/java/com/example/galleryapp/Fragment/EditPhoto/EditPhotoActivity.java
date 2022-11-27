@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,8 +108,14 @@ public class EditPhotoActivity extends AppCompatActivity {
             ) {
 
                 String path_cube_file = "cube/" + cube_file;
-                CubeDataLoader current = new CubeDataLoader(ctx,path_cube_file);
+                try{
+                InputStream inputStream = ctx.getAssets().open(path_cube_file);
+                CubeDataLoader current = new CubeDataLoader(ctx,inputStream,path_cube_file);
                 publishProgress(current);
+                }
+                catch (IOException e){
+                    //Eat exxception
+                }
             }
             return null;
         }

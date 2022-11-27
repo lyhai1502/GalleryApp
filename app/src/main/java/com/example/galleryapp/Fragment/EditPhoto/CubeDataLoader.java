@@ -7,6 +7,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CubeDataLoader {
@@ -16,15 +17,15 @@ public class CubeDataLoader {
     private int data_size;
     private String nameFile;
 
-    public CubeDataLoader(Context activity, String file) {
-        nameFile = file;
+    public CubeDataLoader(Context activity, InputStream inputStream, String fileName) {
+        nameFile = fileName;
         data = null;
         int lut3dSize = 0;
         BufferedReader reader = null;
         int i = 0;
 
         try {
-            reader = new BufferedReader(new InputStreamReader(activity.getAssets().open(file)));
+            reader = new BufferedReader(new InputStreamReader(inputStream));
             // do reading, usually loop until end of file reading
             String line;
             String parts[];

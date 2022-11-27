@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (ChipNavigationBar) findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
 
+        albumNames.add("All Images");
         albumNames.add("Favourite");
         albumNames.add("Trash Bin");
 
@@ -146,8 +147,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void passAlbumName(String albumName) {
         albumNames.add(albumName);
-        viewPagerAdapter.getAlbumAdapter().notifyDataSetChanged();
-        Log.d("albumName",albumName);
+        int lastIndex_albumNames = albumNames.size() -1;
+        viewPagerAdapter.getAlbumAdapter().notifyItemRangeInserted(lastIndex_albumNames,1);
+
 
     }
 }

@@ -1,7 +1,9 @@
 package com.example.galleryapp.Fragment.Album;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.galleryapp.MainActivity;
 import com.example.galleryapp.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -24,12 +27,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
 
     private ArrayList<String> names;
     private int[] bg_names;
+    private Context ctx;
 
-    public AlbumAdapter(ArrayList<String> names, int[] bg_names)
+    public AlbumAdapter(Context ctx, ArrayList<String> names, int[] bg_names)
     {
         this.names = names;
         this.bg_names = bg_names;
+        this.ctx = ctx;
     }
+
+
 
     @NonNull
     @Override
@@ -38,6 +45,24 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         return new AlbumViewHolder(recyclerViewAlbum);
     }
 
+    private Drawable scaleImage (Drawable image, float scaleFactor) {
+
+        if ((image == null) || !(image instanceof BitmapDrawable)) {
+            return image;
+        }
+
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+
+        int sizeX = Math.round(image.getIntrinsicWidth() * scaleFactor);
+        int sizeY = Math.round(image.getIntrinsicHeight() * scaleFactor);
+
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, sizeX, sizeY, false);
+
+        image = new BitmapDrawable(ctx.getResources(), bitmapResized);
+
+        return image;
+
+    }
 
     private int getRandomIndex(){
         int index = 0;
@@ -51,7 +76,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         holder.album_textView.setText(names.get(position));
         int randomIndex = this.getRandomIndex();
-        holder.album_imgView.setImageResource(bg_names[randomIndex]);
+        Drawable background = ctx.getResources().getDrawable(bg_names[randomIndex]);
+        background = scaleImage(background , 0.1f);
+        holder.album_imgView.setImageDrawable(background);
 
     }
 
