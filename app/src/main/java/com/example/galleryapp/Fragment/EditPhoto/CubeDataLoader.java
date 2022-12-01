@@ -42,10 +42,10 @@ public class CubeDataLoader {
                 if (parts[0].equals("title")) {
                     // optional, or do nothing.
                 } else if (parts[0].equals("lut_1d_size") || parts[0].equals("lut_2d_size")) {
-                    throw new Exception("Unsupported Iridas .cube lut tag: " + parts[0]);
+                    throw new Exception("Unsupported .cube lut tag: " + parts[0]);
                 } else if (parts[0].equals("lut_3d_size")) {
                     if (parts.length != 2) {
-                        throw new Exception("Malformed LUT_3D_SIZE tag in Iridas .cube lut.");
+                        throw new Exception("Malformed LUT_3D_SIZE tag in .cube lut.");
                     }
                     lut3dSize = Integer.parseInt(parts[1]);
                     data = new int[lut3dSize * lut3dSize * lut3dSize];
