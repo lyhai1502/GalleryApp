@@ -23,7 +23,6 @@ public class EditPhotoViewPagerAdapter extends FragmentStatePagerAdapter {
     public EditPhotoViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
        rotateFragment = new EditPhotoRotateFragment();
-       correctionFragment = new EditPhotoCorrectionFragment();
     }
 
 
@@ -31,6 +30,7 @@ public class EditPhotoViewPagerAdapter extends FragmentStatePagerAdapter {
         this.filePath = filePath;
         this.activity = activity;
         cubeFragment = new EditPhotoCubeFragment(filePath,activity);
+        correctionFragment = new EditPhotoCorrectionFragment(activity,filePath);
     }
 
 
