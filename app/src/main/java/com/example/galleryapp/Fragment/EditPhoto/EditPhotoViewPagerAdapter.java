@@ -1,5 +1,7 @@
 package com.example.galleryapp.Fragment.EditPhoto;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,6 +25,10 @@ public class EditPhotoViewPagerAdapter extends FragmentStatePagerAdapter {
     public EditPhotoViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
        rotateFragment = new EditPhotoRotateFragment();
+    }
+
+    public void addNewCube(Uri uri){
+        cubeFragment.addNewCube(uri);
     }
 
 

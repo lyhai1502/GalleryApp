@@ -1,5 +1,6 @@
 package com.example.galleryapp.Fragment.EditPhoto;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.loader.content.AsyncTaskLoader;
@@ -10,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
@@ -36,6 +38,7 @@ public class EditPhotoActivity extends AppCompatActivity {
     PreviewFilterImageAdapter adapter;
     public ViewPager editPhoto_viewPager;
     public ChipNavigationBar navigationBar;
+    public EditPhotoViewPagerAdapter editPhoto_viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +70,22 @@ public class EditPhotoActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1010){
+            Uri uri = data.getData();
+            String log_str = uri.toString();
+            Log.d("GetFile CUBE", log_str);
+            editPhoto_viewPagerAdapter.addNewCube(uri);
+        }
+    }
+
+    @Override
     protected void onStart(){
         super.onStart();
 
-        EditPhotoViewPagerAdapter editPhoto_viewPagerAdapter = new EditPhotoViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.
+        editPhoto_viewPagerAdapter = new EditPhotoViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.
                 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
         editPhoto_viewPagerAdapter.setFilePathAndActivity(filepath,ctx);

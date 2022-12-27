@@ -18,6 +18,9 @@ public class CubeDataLoader {
     private String nameFile;
 
     public CubeDataLoader(Context activity, InputStream inputStream, String fileName) {
+
+
+
         nameFile = fileName;
         data = null;
         int lut3dSize = 0;

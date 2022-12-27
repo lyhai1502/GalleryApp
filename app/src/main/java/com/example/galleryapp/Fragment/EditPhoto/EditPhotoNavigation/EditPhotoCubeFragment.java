@@ -1,6 +1,8 @@
 package com.example.galleryapp.Fragment.EditPhoto.EditPhotoNavigation;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -11,15 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.renderscript.RenderScript;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.galleryapp.Fragment.EditPhoto.CubeDataLoader;
 import com.example.galleryapp.Fragment.EditPhoto.EditPhotoActivity;
 import com.example.galleryapp.Fragment.EditPhoto.PreviewFilterImageAdapter;
 import com.example.galleryapp.R;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,8 +37,14 @@ public class EditPhotoCubeFragment extends Fragment {
     public RenderScript renderScript;
     public String filepath;
     public String[] cube_files;
-    ArrayList<CubeDataLoader> cubes = new ArrayList<CubeDataLoader>();
+
+    //hai biến này là static vì khi gọi Intent thì Activity sẽ gọi lại OnStart => Fragment này bị gọi lại onCreateView
+    static ArrayList<CubeDataLoader> cubes = new ArrayList<CubeDataLoader>();
+    static Boolean isCubeLoaded = false;
     public EditPhotoActivity activity;
+
+    public Button addPreset_button;
+    public int PICKFILE_REQUEST_CODE = 1010;
 
     public EditPhotoCubeFragment(String filePath, EditPhotoActivity activity){
         this.filepath = filePath;
@@ -54,8 +65,29 @@ public class EditPhotoCubeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity,RecyclerView.HORIZONTAL, false);
         filter_recyclerView.setLayoutManager(linearLayoutManager);
         filter_recyclerView.setAdapter(adapter);
-        FilterViewAsyncTask loadFilter_asyncTask = new FilterViewAsyncTask();
-        loadFilter_asyncTask.execute();
+
+        addPreset_button = (Button) view.findViewById(R.id.addPreset_button);
+        addPreset_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loadFile = new Intent(Intent.ACTION_GET_CONTENT);
+                loadFile.setType("*/*");
+                
+                activity.startActivityForResult(loadFile, PICKFILE_REQUEST_CODE);
+
+
+            }
+        });
+
+        if(isCubeLoaded == false){
+            FilterViewAsyncTask loadFilter_asyncTask = new FilterViewAsyncTask();
+            loadFilter_asyncTask.execute();
+            isCubeLoaded = true;
+        }
+        else{
+            //Do nothing
+        }
+
         return view;
     }
 
@@ -64,6 +96,25 @@ public class EditPhotoCubeFragment extends Fragment {
         cube_files = null;
         cube_files = assetManager.list("cube");
         return cube_files;
+    }
+
+    private String getFileName(Uri uri) {
+        File file = new File(uri.getPath());
+        return file.getName();
+    }
+
+    public void addNewCube(Uri uri) {
+        try{
+            InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+            CubeDataLoader newCube = new CubeDataLoader(activity,inputStream,getFileName(uri));
+            cubes.add(0,newCube);
+            Log.d("Add more cube","Add successful!");
+            adapter.notifyDataSetChanged();
+            filter_recyclerView.setAdapter(adapter);
+        }
+        catch(IOException e){
+            Log.d("Add more cube","Cannot read file");
+        }
     }
 
 
@@ -88,7 +139,7 @@ public class EditPhotoCubeFragment extends Fragment {
                 String path_cube_file = "cube/" + cube_file;
                 try{
                     InputStream inputStream = activity.getAssets().open(path_cube_file);
-                    CubeDataLoader current = new CubeDataLoader(activity,inputStream,path_cube_file);
+                    CubeDataLoader current = new CubeDataLoader(activity,inputStream,cube_file);
                     publishProgress(current);
                 }
                 catch (IOException e){
@@ -102,7 +153,10 @@ public class EditPhotoCubeFragment extends Fragment {
         protected void onProgressUpdate(CubeDataLoader... values) {
             super.onProgressUpdate(values);
             cubes.add(values[0]);
+
             adapter.notifyDataSetChanged();
+            Integer adapter_size = adapter.getItemCount();
+            Log.d("Add more cube",Integer.toString(adapter_size));
         }
 
         @Override
