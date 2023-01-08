@@ -6,9 +6,30 @@
     tools:context=".Fragment.EditPhoto.EditPhotoNavigation.EditPhotoCubeFragment">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello"></TextView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rotate 90*"
+        android:id="@+id/rotate90"
+        android:textSize="10sp"
+        ></Button>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flip Horizontal"
+        android:id="@+id/flipHorizontal"
+        android:textSize="10sp"
+        ></Button>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flip Vertical"
+        android:id="@+id/flipVertical"
+        android:textSize="10sp"
+        ></Button>
+
+
 
 </LinearLayout>

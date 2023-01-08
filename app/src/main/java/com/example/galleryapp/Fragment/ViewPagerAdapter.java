@@ -20,6 +20,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         photo_fragment = new PhotosFragment();
     }
 
+
+    public void changePhotoLayoutManager(){
+        photo_fragment.changeLayoutManager();
+    }
+    
+
+
+
     @NonNull
     @Override
     public Fragment getItem(int position) {

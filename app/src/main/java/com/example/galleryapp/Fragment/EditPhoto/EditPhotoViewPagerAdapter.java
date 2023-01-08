@@ -19,12 +19,11 @@ public class EditPhotoViewPagerAdapter extends FragmentStatePagerAdapter {
     public String filePath;
     public EditPhotoActivity activity;
     EditPhotoCubeFragment cubeFragment;
-    EditPhotoCorrectionFragment correctionFragment;
-    EditPhotoRotateFragment rotateFragment;
+    //EditPhotoCorrectionFragment correctionFragment;
+    //EditPhotoRotateFragment rotateFragment;
 
     public EditPhotoViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
-       rotateFragment = new EditPhotoRotateFragment();
     }
 
     public void addNewCube(Uri uri){
@@ -36,7 +35,8 @@ public class EditPhotoViewPagerAdapter extends FragmentStatePagerAdapter {
         this.filePath = filePath;
         this.activity = activity;
         cubeFragment = new EditPhotoCubeFragment(filePath,activity);
-        correctionFragment = new EditPhotoCorrectionFragment(activity,filePath);
+        //correctionFragment = new EditPhotoCorrectionFragment(activity,filePath);
+        //rotateFragment = new EditPhotoRotateFragment(activity,filePath);
     }
 
 
@@ -48,9 +48,9 @@ public class EditPhotoViewPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return cubeFragment;
             case 1:
-                return correctionFragment;
+                return new EditPhotoCorrectionFragment(activity,filePath);
             case 2:
-                return rotateFragment;
+                return new EditPhotoRotateFragment(activity,filePath);
             default:
                 return cubeFragment;
         }

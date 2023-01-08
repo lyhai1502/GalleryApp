@@ -49,24 +49,30 @@ public class EditPhotoCorrectionFragment extends Fragment {
         tint_seekBar = (SeekBar) view.findViewById(R.id.tint_seekbar);
         blur_seekBar = (SeekBar) view.findViewById(R.id.blur_seekbar);
 
-        Log.d("Filepath_Correction",filePath);
-        File imageFile = new File(filePath);
-        bitmap_src = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-        bitmap_src = Bitmap.createScaledBitmap(bitmap_src,
-                (int) (bitmap_src.getWidth() *0.05) ,
-                (int) (bitmap_src.getHeight() *0.05), true
-        );
+        // Get the currentPreviewImage as a bitmap
+        bitmap_src = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
+
 
         brightness_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            boolean isBeenTouch = false;
+            Bitmap currentBitmap_brightness = null;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                Bitmap brightness_new = BitmapProcessor.changeBrightness(bitmap_src,progress);
+                Bitmap brightness_new = BitmapProcessor.changeBrightness(currentBitmap_brightness,progress);
                 activity.preview_imageView.setImageBitmap(brightness_new);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    currentBitmap_brightness = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
+                    currentBitmap_brightness = Bitmap.createScaledBitmap(currentBitmap_brightness,
+                            (int) (currentBitmap_brightness.getWidth() *0.5) ,
+                            (int) (currentBitmap_brightness.getHeight() *0.5), true
+                    );
+                    isBeenTouch = true;
 
             }
 
@@ -78,14 +84,23 @@ public class EditPhotoCorrectionFragment extends Fragment {
 
 
         tint_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            Bitmap currentBitmap_tint = null;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Bitmap tint_new = BitmapProcessor.tintImage(bitmap_src,progress);
+
+                Bitmap tint_new = BitmapProcessor.tintImage(currentBitmap_tint,progress);
                 activity.preview_imageView.setImageBitmap(tint_new);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                    currentBitmap_tint = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
+                    currentBitmap_tint = Bitmap.createScaledBitmap(currentBitmap_tint,
+                            (int) (bitmap_src.getWidth() *0.5) ,
+                            (int) (bitmap_src.getHeight() *0.5), true
+                    );
 
             }
 
@@ -95,17 +110,29 @@ public class EditPhotoCorrectionFragment extends Fragment {
             }
         });
 
-        blur_seekBar.setMax(5);
-        BitmapProcessor bmp_procesor = new BitmapProcessor(bitmap_src,activity, RenderScript.create(activity));
+        blur_seekBar.setMax(25);
+
         blur_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            boolean isBeenTouch = false;
+            Bitmap currentBitmap_blur = null;
+            BitmapProcessor bmp_procesor = null;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Bitmap blur = bmp_procesor.blur(progress);
+                Bitmap blur = bmp_procesor.blur(progress,1f);
                 activity.preview_imageView.setImageBitmap(blur);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                currentBitmap_blur = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
+                currentBitmap_blur = Bitmap.createScaledBitmap(currentBitmap_blur,
+                        (int) (bitmap_src.getWidth() *0.5) ,
+                        (int) (bitmap_src.getHeight() *0.5), true
+                );
+
+                bmp_procesor = new BitmapProcessor(currentBitmap_blur,activity, RenderScript.create(activity));
+                isBeenTouch = true;
 
             }
 

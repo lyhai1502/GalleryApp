@@ -11,6 +11,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,17 +54,15 @@ public class EditPhotoActivity extends AppCompatActivity {
         preview_imageView = (ImageView) findViewById(R.id.preview_imageView);
 
         File file = new File(filepath);
-        Picasso.get()
-                .load(file)
-                .into(preview_imageView);
+        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        preview_imageView.setImageBitmap(myBitmap);
 
 
         preview_imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Picasso.get()
-                        .load(file)
-                        .into(preview_imageView);
+                Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                preview_imageView.setImageBitmap(myBitmap);
                 return true;
             }
         });
@@ -139,69 +139,4 @@ public class EditPhotoActivity extends AppCompatActivity {
             }
         });
 
-
-//        adapter = new PreviewFilterImageAdapter(this,
-//                filepath,cubes,renderScript);
-//
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false);
-//        filter_recyclerView.setLayoutManager(linearLayoutManager);
-//        filter_recyclerView.setAdapter(adapter);
-//        FilterViewAsyncTask loadFilter_asyncTask = new FilterViewAsyncTask();
-//        loadFilter_asyncTask.execute();
-
-    }
-
-//    private String[] getAllCubes() throws IOException {
-//        AssetManager assetManager = this.getAssets();
-//        cube_files = null;
-//        cube_files = assetManager.list("cube");
-//        return cube_files;
-//    }
-//
-//
-//    public class FilterViewAsyncTask extends AsyncTask<Void,CubeDataLoader,Void>{
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            try{
-//                getAllCubes();
-//            }
-//            catch (IOException e){
-//                //Eat exception
-//            }
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            for (String cube_file : cube_files
-//            ) {
-//
-//                String path_cube_file = "cube/" + cube_file;
-//                try{
-//                InputStream inputStream = ctx.getAssets().open(path_cube_file);
-//                CubeDataLoader current = new CubeDataLoader(ctx,inputStream,path_cube_file);
-//                publishProgress(current);
-//                }
-//                catch (IOException e){
-//                    //Eat exxception
-//                }
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(CubeDataLoader... values) {
-//            super.onProgressUpdate(values);
-//            cubes.add(values[0]);
-//            adapter.notifyDataSetChanged();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void unused) {
-//            super.onPostExecute(unused);
-//        }
-//
-//
-//    }
-}
+}}

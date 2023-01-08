@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +78,13 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+        ImageView shuffle_button = (ImageView) findViewById(R.id.shuffleLayout_button);
+        shuffle_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPagerAdapter.changePhotoLayoutManager();
+            }
+        });
     }
 
 
