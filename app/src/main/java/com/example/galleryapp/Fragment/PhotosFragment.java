@@ -29,6 +29,8 @@ public class PhotosFragment extends Fragment {
     private RecyclerView photo_recyclerview;
     private ImageDataAdapter imageDataAdapter;
 
+    private String currentLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,35 @@ public class PhotosFragment extends Fragment {
 
     }
 
+    public void changeLayoutManager(){
+        ChangePhotoLayout changePhotoLayout = new ChangePhotoLayout();
+        changePhotoLayout.run();
+    }
+
+
+    private class ChangePhotoLayout extends Thread{
+
+        @Override
+        public void run() {
+            //prototype LayoutManager
+            StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(main);
+
+
+            if(currentLayout.equals("Grid")){
+                photo_recyclerview.setLayoutManager(linearLayoutManager);
+
+
+                currentLayout = "Linear";
+
+            }else{
+                photo_recyclerview.setLayoutManager(gridLayoutManager);
+                currentLayout = "Grid";
+            }
+        }
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +81,7 @@ public class PhotosFragment extends Fragment {
 
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
         photo_recyclerview.setLayoutManager(gridLayoutManager);
+        currentLayout = "Grid";
         photo_recyclerview.setAdapter(imageDataAdapter);
         return view;
     }

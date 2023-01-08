@@ -9,17 +9,26 @@
     <ImageView
         android:id="@+id/preview_imageView"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
-        android:scaleType="fitCenter"
+        android:layout_height="400dp"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/filter_recyclerView"
-        android:layout_marginBottom="4dp"></ImageView>
+        android:layout_marginBottom="4dp"
+        android:scaleType="fitCenter"></ImageView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/filter_recyclerView"
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="22dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="190dp"
+        android:id="@+id/editPhoto_viewPager"
+        android:layout_below="@id/preview_imageView"
+        ></androidx.viewpager.widget.ViewPager>
+
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/editPhoto_navigation"
+        android:layout_below="@+id/editPhoto_viewPager"
+        app:cnb_badgeColor="#db6097"
+        app:cnb_menuResource="@menu/menu_edit_photo_nav"
+        app:cnb_orientationMode="horizontal"
+        ></com.ismaeldivita.chipnavigation.ChipNavigationBar>
 
 </RelativeLayout>

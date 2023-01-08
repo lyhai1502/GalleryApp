@@ -7,6 +7,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CubeDataLoader {
@@ -14,16 +15,20 @@ public class CubeDataLoader {
     private int data[];
     private int size;
     private int data_size;
+    private String nameFile;
 
-    public CubeDataLoader(Context activity, String file) {
+    public CubeDataLoader(Context activity, InputStream inputStream, String fileName) {
 
+
+
+        nameFile = fileName;
         data = null;
         int lut3dSize = 0;
         BufferedReader reader = null;
         int i = 0;
 
         try {
-            reader = new BufferedReader(new InputStreamReader(activity.getAssets().open(file)));
+            reader = new BufferedReader(new InputStreamReader(inputStream));
             // do reading, usually loop until end of file reading
             String line;
             String parts[];
@@ -40,10 +45,10 @@ public class CubeDataLoader {
                 if (parts[0].equals("title")) {
                     // optional, or do nothing.
                 } else if (parts[0].equals("lut_1d_size") || parts[0].equals("lut_2d_size")) {
-                    throw new Exception("Unsupported Iridas .cube lut tag: " + parts[0]);
+                    throw new Exception("Unsupported .cube lut tag: " + parts[0]);
                 } else if (parts[0].equals("lut_3d_size")) {
                     if (parts.length != 2) {
-                        throw new Exception("Malformed LUT_3D_SIZE tag in Iridas .cube lut.");
+                        throw new Exception("Malformed LUT_3D_SIZE tag in .cube lut.");
                     }
                     lut3dSize = Integer.parseInt(parts[1]);
                     data = new int[lut3dSize * lut3dSize * lut3dSize];
@@ -96,6 +101,10 @@ public class CubeDataLoader {
 
         data_size = i;
 
+    }
+
+    public String getNameFile(){
+        return this.nameFile;
     }
 
     public int[] getData() {

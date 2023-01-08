@@ -2,6 +2,7 @@ package com.example.galleryapp.Fragment.EditPhoto;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.renderscript.RenderScript;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,9 +52,19 @@ public class PreviewFilterImageAdapter extends RecyclerView.Adapter<PreviewFilte
 
         //Get the Image
         int[] lut = cubes.get(position).getData();
-        Log.d("LUTAdapter", Integer.toString(lut[0]));
         Bitmap image = processor.applyLUT(cubes.get(position));
         holder.preview_filter_imageView.setImageBitmap(image);
+        holder.name_filter_textView.setText(cubes.get(position).getNameFile());
+        int current_position = position;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ImageView preview_filter_imageView = activity.findViewById(R.id.preview_imageView);
+                preview_filter_imageView.setImageBitmap(image);
+
+            }
+        });
 
     }
 
@@ -65,14 +76,16 @@ public class PreviewFilterImageAdapter extends RecyclerView.Adapter<PreviewFilte
     class PreviewFilterImage extends RecyclerView.ViewHolder{
         public ImageView preview_filter_imageView;
         public TextView name_filter_textView;
-
+        public View itemView;
         public PreviewFilterImage(@NonNull View itemView) {
             super(itemView);
 
             preview_filter_imageView = (ImageView) itemView.findViewById(R.id.preview_filter_imageView);
             name_filter_textView = (TextView) itemView.findViewById(R.id.name_filter_textView);
-
+            this.itemView = itemView;
 
         }
     }
+
+
 }
